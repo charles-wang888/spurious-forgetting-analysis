@@ -413,18 +413,21 @@ ollama list
 
 ```
 灾难遗忘/
-├── README_CN.md                 # 项目说明（本文件）
+├── README_CN.md                 # 项目说明（中文）
+├── README_EN.md                 # 项目说明（英文）
 ├── requirements.txt            # 依赖包
 ├── config.py                   # 配置文件
 ├── main.py                     # 主程序入口（旧接口）
 ├── run_experiments.py          # 实验主入口 ⭐
+├── setup_hf_mirror.py          # HuggingFace镜像设置工具
 ├── data/                       # 数据处理模块
 │   ├── __init__.py
-│   └── datasets.py            # 数据集加载
+│   ├── datasets.py            # 数据集加载
+│   └── clinc150_cache/        # CLINC-150数据集缓存
 ├── models/                     # 模型定义
 │   ├── __init__.py
-│   ├── qwen_model.py          # Qwen2.5模型（本地和Ollama，实验使用）
-│   └── base_model.py          # 基础模型类
+│   ├── base_model.py          # 基础模型类
+│   └── qwen_model.py          # Qwen模型（本地和Ollama，实验使用）⭐
 ├── metrics/                    # 评测指标
 │   ├── __init__.py
 │   ├── alignment_score.py     # 对齐度指标
@@ -436,17 +439,12 @@ ollama list
 │   ├── alignment_analyzer.py  # 对齐分析工具
 │   ├── reversibility_analyzer.py # 可逆性分析工具
 │   ├── representation_tracker.py # 动态跟踪工具
+│   ├── cka_implementation.py  # CKA（Centered Kernel Alignment）实现
 │   └── visualization.py       # 可视化工具
-├── strategies/                 # 缓解策略
-│   ├── __init__.py
-│   ├── adaptive_freezing.py   # 自适应冻结策略
-│   ├── alignment_repair.py    # 对齐修复策略
-│   ├── hybrid_strategy.py     # 混合策略
-│   └── baseline_methods.py    # 基线方法（EWC, SI等）
 ├── experiments/                # 实验脚本
 │   ├── __init__.py
 │   ├── main_experiment.py     # 主实验脚本 ⭐
-│   └── spurious_forgetting_identification.py  # 实验1：虚假遗忘识别
+│   └── spurious_forgetting_identification.py  # 虚假遗忘识别实验
 ├── training/                   # 训练模块
 │   ├── __init__.py
 │   ├── deep_alignment_trainer.py # 深层对齐训练 ⭐
@@ -456,8 +454,9 @@ ollama list
 │   ├── logger.py              # 日志工具
 │   ├── helpers.py             # 辅助函数
 │   └── ollama_helper.py       # Ollama辅助工具
-└── results/                    # 实验结果目录
-    └── (实验运行后自动生成)
+├── results/                    # 实验结果目录（实验运行后自动生成）
+├── logs/                       # 日志目录
+└── examples/                   # 示例代码目录
 ```
 
 ---
@@ -466,11 +465,8 @@ ollama list
 
 本项目使用以下开源数据集：
 
-1. **Split-MNIST**: 将MNIST数据集分成5个任务
-2. **Permuted-MNIST**: MNIST的像素重排版本，10个任务
-3. **Split-CIFAR-10**: 将CIFAR-10分成5个任务
-4. **CLINC-150**: 自然语言理解数据集，15个意图分类任务
-5. **20 Newsgroups**: 文本分类数据集，5个任务
+1. **CLINC-150**: 自然语言理解数据集，15个意图分类任务
+2. **20 Newsgroups**: 文本分类数据集，5个任务
 
 ---
 
