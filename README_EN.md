@@ -413,18 +413,21 @@ ollama list
 
 ```
 灾难遗忘/
-├── README_EN.md                 # Project documentation (this file)
+├── README_CN.md                 # Project documentation (Chinese)
+├── README_EN.md                 # Project documentation (English, this file)
 ├── requirements.txt            # Dependencies
 ├── config.py                   # Configuration file
 ├── main.py                     # Main program entry (legacy interface)
 ├── run_experiments.py          # Experiment main entry ⭐
+├── setup_hf_mirror.py          # HuggingFace mirror setup tool
 ├── data/                       # Data processing module
 │   ├── __init__.py
-│   └── datasets.py            # Dataset loading
+│   ├── datasets.py            # Dataset loading
+│   └── clinc150_cache/        # CLINC-150 dataset cache
 ├── models/                     # Model definitions
 │   ├── __init__.py
-│   ├── qwen_model.py          # Qwen2.5 model (local and Ollama, used in experiments)
-│   └── base_model.py          # Base model class
+│   ├── base_model.py          # Base model class
+│   └── qwen_model.py          # Qwen model (local and Ollama, used in experiments) ⭐
 ├── metrics/                    # Evaluation metrics
 │   ├── __init__.py
 │   ├── alignment_score.py     # Alignment metric
@@ -436,17 +439,12 @@ ollama list
 │   ├── alignment_analyzer.py  # Alignment analysis tool
 │   ├── reversibility_analyzer.py # Reversibility analysis tool
 │   ├── representation_tracker.py # Dynamic tracking tool
+│   ├── cka_implementation.py  # CKA (Centered Kernel Alignment) implementation
 │   └── visualization.py       # Visualization tool
-├── strategies/                 # Mitigation strategies
-│   ├── __init__.py
-│   ├── adaptive_freezing.py   # Adaptive freezing strategy
-│   ├── alignment_repair.py    # Alignment repair strategy
-│   ├── hybrid_strategy.py     # Hybrid strategy
-│   └── baseline_methods.py    # Baseline methods (EWC, SI, etc.)
 ├── experiments/                # Experiment scripts
 │   ├── __init__.py
 │   ├── main_experiment.py     # Main experiment script ⭐
-│   └── spurious_forgetting_identification.py  # Experiment 1: Spurious forgetting identification
+│   └── spurious_forgetting_identification.py  # Spurious forgetting identification experiment
 ├── training/                   # Training module
 │   ├── __init__.py
 │   ├── deep_alignment_trainer.py # Deep alignment training ⭐
@@ -456,8 +454,9 @@ ollama list
 │   ├── logger.py              # Logging tool
 │   ├── helpers.py             # Helper functions
 │   └── ollama_helper.py       # Ollama helper tool
-└── results/                    # Experimental results directory
-    └── (automatically generated after experiment runs)
+├── results/                    # Experimental results directory (automatically generated)
+├── logs/                       # Log directory
+└── examples/                   # Example code directory
 ```
 
 ---
@@ -466,11 +465,8 @@ ollama list
 
 This project uses the following open-source datasets:
 
-1. **Split-MNIST**: Split MNIST dataset into 5 tasks
-2. **Permuted-MNIST**: Pixel-permuted version of MNIST, 10 tasks
-3. **Split-CIFAR-10**: Split CIFAR-10 into 5 tasks
-4. **CLINC-150**: Natural language understanding dataset, 15 intent classification tasks
-5. **20 Newsgroups**: Text classification dataset, 5 tasks
+1. **CLINC-150**: Natural language understanding dataset, 15 intent classification tasks
+2. **20 Newsgroups**: Text classification dataset, 5 tasks
 
 ---
 
